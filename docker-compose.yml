@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  web_intertel:
+    build: ./docker/web
+    ports:
+      - 51101:8080
+    container_name: "web_intertel"
+    tty: true
+    environment:
+      TZ: 'Asia/Tokyo'
+  mysql_intertel:
+    image: mysql:5.7
+    tty: true
+    container_name: "mysql_intertel"
+    ports:
+      - 53101:3306
+    volumes:
+        - ./db/data:/var/lib/mysql
+        - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: intertel
+      MYSQL_PASSWORD: y9DamOKrbZs
+      MYSQL_DATABASE: intertel
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  node_intertel:
+    container_name: "node_intertel"
+    build:
+      context: .
+      dockerfile: ./docker/vue/Dockerfile 
+    tty: true
+    working_dir: /root/node_intertel
+    volumes:
+        - ./src:/root/node_intertel

@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Shop List Page";
+}
+
+<div class="text-center">
+    店舗詳細ページ
+    <div id="app"></div>
+</div>
+
+@section Scripts {
+    <input type="hidden" id="shop_code" value='@ViewData["shop_code"]'>
+    <script src='/js/dist/view_shop_detail.app.bundle.js'></script>
+}
