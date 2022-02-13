@@ -8,23 +8,28 @@ using Intertel.Entities;
 
 namespace Intertel.Data
 {
-  public class AppDbContext : IdentityDbContext<IdentityUser>
-  {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
+        public DbSet<Item> Item { get; set; }
+        public DbSet<Status> Status { get; set; }
+        public DbSet<IdentityUser> IdentityUser { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Disposition> Disposition { get; set; }
+        public DbSet<ItemStatus> ItemStatus { get; set; }
+
+
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ItemStatus>()
+          .HasKey(m => new { m.ItemId, m.StatusId });
+        }
     }
-    public DbSet<Item> Item { get; set; }
-    public DbSet<Status> Status { get; set; }
-    public DbSet<IdentityUser> IdentityUser { get; set; }
-    public DbSet<Customer> Customer { get; set; }
-    public DbSet<Disposition> Disposition { get; set; }
-
-
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-      base.OnModelCreating(modelBuilder);
-    }
-  }
 }
