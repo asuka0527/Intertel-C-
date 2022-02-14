@@ -16,6 +16,8 @@ module.exports = {
       "wwwroot/js/dist/view_item_list.app": './ts/view_item_list.ts',
       "wwwroot/js/dist/view_item_create.app": './ts/view_item_create.ts',
       "wwwroot/js/dist/view_item_detail.app": './ts/view_item_detail.ts',
+      "wwwroot/js/dist/view_status_list.app": './ts/view_status_list.ts',
+
 
   },
   output: {

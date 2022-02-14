@@ -39,6 +39,8 @@ namespace Intertel
             services.AddControllersWithViews();
 
             services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<IStatusService, StatusService>();
+
 
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

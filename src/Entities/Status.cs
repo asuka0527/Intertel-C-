@@ -17,5 +17,8 @@ namespace Intertel.Entities
     public string Name { get; set; }
     public int SortNo { get; set; }
     public virtual ICollection<Item> Items { get; set; }
+
+    [NotMapped]
+    public bool IsEditable { get; set; } = false;
   }
 }
