@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Intertel.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pomelo.EntityFrameworkCore.MySql;
 using Intertel.Service;
 namespace Intertel
 {
@@ -38,10 +31,12 @@ namespace Intertel
                 .AddEntityFrameworkStores<AppDbContext>();
             services.AddControllersWithViews();
 
+            services.AddTransient<MasterService>();
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IStatusService, StatusService>();
             services.AddTransient<ILocationService, LocationService>();
-            services.AddTransient<MasterService>();
+            services.AddTransient<IVendorService, VendorService>();
+            services.AddTransient<IUnitService, UnitService>();
 
 
             services.AddControllers().AddNewtonsoftJson(options =>

@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Intertel.Entities;
 using System.Linq;
-using System;
 using Intertel.Models;
 
 namespace Intertel.Service

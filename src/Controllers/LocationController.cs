@@ -1,19 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication;
 using Intertel.Service;
 using Intertel.Models;
 using Intertel.Entities;
 using X.PagedList;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
 
 namespace Intertel.Controllers
 {
