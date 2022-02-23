@@ -1,7 +1,7 @@
-POST http://localhost:8080/Api/Location/Save
+POST http://localhost:8080/Api/Unit/Save
 content-type: application/json
 
 {
-  "name": "Gunma",
-  "isDeleted": true
+  "name": "Beluga",
+  "isDeleted": false
 }

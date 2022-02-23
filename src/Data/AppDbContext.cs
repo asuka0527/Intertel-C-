@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Intertel.Entities;
@@ -24,7 +21,7 @@ namespace Intertel.Data
         public DbSet<Unit> Unit { get; set; }
         public DbSet<Vendor> Vendor { get; set; }
 
-
+        public DbSet<Agent> Agent { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
