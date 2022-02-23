@@ -13,13 +13,8 @@ namespace Intertel.Service
         /// </summary>
         /// <returns></returns>
         Task<IQueryable<Status>> All();
-        /// <summary>
-        /// </summary>
-        /// <param name="status"></param>
-        /// <returns></returns>
-        Task<Status> CreateAsync(Status status);
 
-        Task<Status> SaveAsync(Status status);
+        Task<Status> SaveAsync(Status postedStatus);
 
         Task<Status> GetById(Guid id);
 

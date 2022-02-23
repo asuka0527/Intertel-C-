@@ -20,8 +20,9 @@ namespace Intertel.Data
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Disposition> Disposition { get; set; }
         public DbSet<ItemStatus> ItemStatus { get; set; }
-
-
+        public DbSet<Location> Location { get; set; }
+        public DbSet<Unit> Unit { get; set; }
+        public DbSet<Vendor> Vendor { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,0 +1,8 @@
+POST http://localhost:8080/Api/Status/Save
+content-type: application/json
+
+{
+  "id": "08d9f6b9-36bc-40bf-8c81-7657676dbc34",
+  "name": "Gift",
+  "isEditable": false
+}

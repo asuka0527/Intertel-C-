@@ -10,13 +10,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Intertel.Entities
 {
-    public class Status
+    public class Vendor
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<Item> Items { get; set; }
-
+        public bool IsDeleted { get; set; }
         [NotMapped]
         public bool IsEditable { get; set; } = false;
     }

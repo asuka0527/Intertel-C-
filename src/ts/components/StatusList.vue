@@ -42,13 +42,13 @@
               </button>
               <div id="mail_trash_ir" class="mail_trash header-icon-box-card">
                 <div v-if="showModal">
-                  <DeleteComponent
+                  <!-- <DeleteComponent
                     :deleteModal="deleteModal"
                     :showModal="showModal"
                     :deleteUrl="deleteUrl"
                     :loading="loading"
                     :id="status.id"
-                  />
+                  /> -->
                 </div>
               </div>
               <button class="btn" @click="onHandleDelete(status.id)"></button>
@@ -147,7 +147,7 @@ export default class StatusList extends Vue {
 
     self.loading = true;
     axios
-      .get("/StatusApi/Search", { params: self.searchParam })
+      .get("/Api/Status/Search", { params: self.searchParam })
       .then(function (res: any) {
         console.log({ searchRes: res });
         self.statuses = res.data.data;

@@ -31,7 +31,7 @@ namespace Intertel.Controllers
 
 
         [HttpGet("")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Index()
         {
             return View();
@@ -39,7 +39,7 @@ namespace Intertel.Controllers
 
     }
 
-    [Route("StatusApi")]
+    [Route("Api/Status")]
     public class StatusApiController : Controller
     {
         private readonly ILogger<StatusApiController> _logger;
@@ -79,25 +79,9 @@ namespace Intertel.Controllers
                 MetaData = list.GetMetaData()
             };
         }
-        [HttpPost("Create")]
-        [Authorize]
-        public async Task<ActionResult> Create([FromBody] Status postedStatus, [FromQuery] ItemSearchParam searchParams)
-        {
-
-            if (ModelState.IsValid)
-            {
-                postedStatus = await _statusService.CreateAsync(postedStatus);
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-
-            return RedirectToAction("Search", searchParams);
-        }
 
         [HttpPost("Save")]
-        [Authorize]
+        // [Authorize]
         public async Task<ActionResult> Save([FromBody] Status postedStatus)
         {
             if (ModelState.IsValid)
@@ -113,7 +97,7 @@ namespace Intertel.Controllers
         }
 
         [HttpDelete("")]
-        [Authorize]
+        // [Authorize]
         public async Task<ActionResult> Remove(Guid statusId)
         {
             var result = false;

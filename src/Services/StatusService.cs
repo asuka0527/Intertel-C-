@@ -40,33 +40,34 @@ namespace Intertel.Service
             return statuses;
         }
 
-        public async Task<Status> CreateAsync(Status status)
-        {
-
-            await _dbContext.Status.AddAsync(status);
-            await _dbContext.SaveChangesAsync();
-            return status;
-        }
-
         public async Task<Status> GetById(Guid id)
         {
-            var status = await _dbContext.Status.FirstOrDefaultAsync(i => i.Id == id);
+            var status = await _dbContext.Status.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
             return status;
         }
 
-        public async Task<Status> SaveAsync(Status status)
+        public async Task<Status> SaveAsync(Status postedStatus)
         {
-            _dbContext.Entry(status).State = EntityState.Modified;
+            var status = await _dbContext.Status.AsNoTracking().Where(s => s.Id == postedStatus.Id).FirstOrDefaultAsync();
+
+            if (status != null)
+            {
+                _dbContext.Entry<Status>(postedStatus).State = EntityState.Modified;
+            }
+            else
+            {
+                _dbContext.Status.Add(postedStatus);
+            }
 
             await _dbContext.SaveChangesAsync();
 
-            return status;
+            return postedStatus;
 
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var status = await _dbContext.Status.Where(s => s.Id == id).FirstOrDefaultAsync();
+            var status = await _dbContext.Status.AsNoTracking().Where(s => s.Id == id).FirstOrDefaultAsync();
             if (status == null)
                 return false;
 

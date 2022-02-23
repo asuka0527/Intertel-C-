@@ -1,1 +1,1 @@
-docker exec -it node_intertel /bin/bash -c "cd /root/node_intertel && npm run build -- --watch --mode development"
+docker exec -it node_intertel /bin/bash -c "cd /root/node_intertel && npm install && npm run build -- --watch --mode development"
