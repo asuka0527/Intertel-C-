@@ -1,2 +1,2 @@
-GET http://localhost:8080/Api/Status/Search?name=New
+GET http://localhost:8080/Api/Location/Search?name=Gunma
 content-type: application/json

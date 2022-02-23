@@ -40,7 +40,7 @@ namespace Intertel
 
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IStatusService, StatusService>();
-
+            services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<MasterService>();
 
 

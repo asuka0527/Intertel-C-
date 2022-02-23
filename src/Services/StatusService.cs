@@ -1,17 +1,10 @@
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Intertel.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Intertel.Models;
 using Intertel.Entities;
 using System;
-using System.IO;
-using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
-using Newtonsoft.Json;
 
 namespace Intertel.Service
 {
@@ -21,28 +14,29 @@ namespace Intertel.Service
 
         private AppDbContext _dbContext = null;
         private ILogger<StatusService> _logger = null;
-        public IHttpContextAccessor _httpContextAccessor;
-        private UserManager<IdentityUser> _userManager;
 
-        public StatusService(AppDbContext dbContext, ILogger<StatusService> logger, IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager)
+
+        public StatusService(
+            AppDbContext dbContext,
+            ILogger<StatusService> logger)
         {
             _dbContext = dbContext ?? throw new System.ArgumentNullException(nameof(dbContext));
 
             _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
 
-            _userManager = userManager ?? throw new System.ArgumentNullException(nameof(userManager));
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IQueryable<Status>> GetStatusListAsync()
         {
-            var statuses = _dbContext.Status.AsNoTracking();
-            return statuses;
+            var statusList = _dbContext.Status.AsNoTracking();
+
+            return statusList;
         }
 
         public async Task<Status> FindAsync(Guid id)
         {
             var status = await _dbContext.Status.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+
             return status;
         }
 
@@ -62,7 +56,6 @@ namespace Intertel.Service
             await _dbContext.SaveChangesAsync();
 
             return postedStatus;
-
         }
 
         public async Task<bool> DeleteAsync(Guid id)
