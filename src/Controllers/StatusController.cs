@@ -22,13 +22,11 @@ namespace Intertel.Controllers
     {
         private readonly ILogger<StatusController> _logger;
 
-
         public StatusController(
             ILogger<StatusController> logger)
         {
             _logger = logger;
         }
-
 
         [HttpGet("")]
         // [Authorize]
@@ -43,34 +41,37 @@ namespace Intertel.Controllers
     public class StatusApiController : Controller
     {
         private readonly ILogger<StatusApiController> _logger;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IItemService _itemService;
         private readonly IStatusService _statusService;
-
-        public IHttpContextAccessor _httpContextAccessor;
 
         public StatusApiController(
             ILogger<StatusApiController> logger,
-            UserManager<IdentityUser> userManager,
-            IItemService itemService,
-            IStatusService statusService,
-            IHttpContextAccessor httpContextAccessor)
+            IStatusService statusService)
         {
             _logger = logger;
-            _userManager = userManager;
-            _itemService = itemService;
             _statusService = statusService;
-            _httpContextAccessor = httpContextAccessor;
+        }
+
+        [HttpGet("Find")]
+        public async Task<ActionResult<Status>> Find(Guid id)
+        {
+            var status = await _statusService.FindAsync(id);
+
+            if (status == null)
+                return NotFound();
+
+            return status;
         }
 
 
         [HttpGet("Search")]
-        public async Task<Pagenate<Status>> Search([FromQuery] ItemSearchParam searchParam)
+        public async Task<Pagenate<Status>> Search([FromQuery] MasterSearchParam searchParam)
         {
-            var statuses = await _statusService.All();
-            if (!string.IsNullOrWhiteSpace(searchParam.model))
-                statuses = statuses.Where(o => o.Name.IndexOf(searchParam.model) > -1);
+            var statuses = await _statusService.GetStatusListAsync();
+
+            if (!string.IsNullOrWhiteSpace(searchParam.name))
+                statuses = statuses.Where(o => o.Name.IndexOf(searchParam.name) > -1);
             searchParam.limt = 5;
+
             var list = statuses.ToPagedList(searchParam.page, searchParam.limt >= 100 ? 100 : searchParam.limt);
 
             return new Pagenate<Status>()
@@ -82,7 +83,7 @@ namespace Intertel.Controllers
 
         [HttpPost("Save")]
         // [Authorize]
-        public async Task<ActionResult> Save([FromBody] Status postedStatus)
+        public async Task<ActionResult<Status>> Save([FromBody] Status postedStatus)
         {
             if (ModelState.IsValid)
             {
@@ -90,19 +91,19 @@ namespace Intertel.Controllers
             }
             else
             {
-                return RedirectToAction("Index");
+                return BadRequest();
             }
 
-            return RedirectToAction("Index");
+            return postedStatus;
         }
 
         [HttpDelete("")]
         // [Authorize]
-        public async Task<ActionResult> Remove(Guid statusId)
+        public async Task<ActionResult> Remove(Guid id)
         {
             var result = false;
 
-            result = await _statusService.DeleteAsync(statusId);
+            result = await _statusService.DeleteAsync(id);
 
             if (result == false)
                 return NotFound();

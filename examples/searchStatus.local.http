@@ -1,0 +1,2 @@
+GET http://localhost:8080/Api/Status/Search?name=New
+content-type: application/json

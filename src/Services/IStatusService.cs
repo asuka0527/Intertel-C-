@@ -12,11 +12,12 @@ namespace Intertel.Service
         /// 
         /// </summary>
         /// <returns></returns>
-        Task<IQueryable<Status>> All();
+        Task<IQueryable<Status>> GetStatusListAsync();
 
         Task<Status> SaveAsync(Status postedStatus);
 
-        Task<Status> GetById(Guid id);
+        Task<Status> FindAsync(Guid id);
+
 
         Task<bool> DeleteAsync(Guid id);
 

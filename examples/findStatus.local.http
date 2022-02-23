@@ -1,0 +1,2 @@
+GET http://localhost:8080/Api/Status/Find?id=08d9f6ba-caf7-44aa-81f3-e8717dd7c528
+content-type: application/json

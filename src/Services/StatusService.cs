@@ -34,13 +34,13 @@ namespace Intertel.Service
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<IQueryable<Status>> All()
+        public async Task<IQueryable<Status>> GetStatusListAsync()
         {
             var statuses = _dbContext.Status.AsNoTracking();
             return statuses;
         }
 
-        public async Task<Status> GetById(Guid id)
+        public async Task<Status> FindAsync(Guid id)
         {
             var status = await _dbContext.Status.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
             return status;
